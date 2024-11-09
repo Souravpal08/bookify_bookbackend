@@ -29,18 +29,18 @@ app.use('/api/orders', orderRoutes)
 
 
 
-
 async function main() {
   await mongoose.connect(process.env.MONGODB_URL);
-  app.use('/', (req, res) => {
-  res.send('Book server is running')
-})
+  console.log('Connected to MongoDB successfully');
 }
 
-main().then(() => console.log('Connected to MongoDB successfully'))
-.catch(err => console.log(err));
+main().catch(err => console.log(err));
 
+// Moved outside `main()`
+app.get('/', (req, res) => {
+  res.send('Book server is running');
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
